@@ -82,4 +82,3 @@ production:
   url: <%= ENV["DATABASE_URL"] %>
   pool: 5
   timeout: 5000
-  adapter: async
