@@ -37,5 +37,4 @@ class ItemModifierGroupTest < ActiveSupport::TestCase
     assert_not @item_modifier_group.valid?
     assert_includes @item_modifier_group.errors[:modifier_group], "must exist"
   end
-
 end
