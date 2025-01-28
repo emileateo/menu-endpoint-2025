@@ -46,10 +46,7 @@ The application includes preloaded data representing a restaurant menu, organize
 ### Seed Data Details
 
 1. **Menu:**
-   - **Identifier:** `main_menu`  
-   - **Label:** `Menù di Mamma Mia Trattoria`  
-   - **State:** `active`  
-   - Valid for one year starting from the current date.  
+   - We have an `active` menu for `Menù di Mamma Mia Trattoria`.
 
 2. **Sections:**  
    - **Classic Pizzas:** Includes configurable pizza items.  
@@ -76,41 +73,43 @@ The application includes preloaded data representing a restaurant menu, organize
 This data can be modified in `db/seeds.rb`.
 
 
-## GraphQL Example
-Query: Retrieve a Menu
+## GraphQL Examples
+
+### Query: Retrieve a Menu
+
 This query retrieves all details about a menu, including its sections, items, and modifiers.
 
 ```graphql
 query MainMenuQuery {
-	menu(id:1) {
-    identifier
-    label
-    state
-    startDate
-    endDate
-    sections {
+   menu(id:1) {
       identifier
       label
-      description
-      items {
-        type
-        identifier
-        label
-        description
-        modifierGroups {
-          identifier
-            modifiers {
-            item {
-               type
+      state
+      startDate
+      endDate
+      sections {
+         identifier
+         label
+         description
+         items {
+            type
+            identifier
+            label
+            description
+            modifierGroups {
                identifier
-               label
+               modifiers {
+                  item {
+                     type
+                     identifier
+                     label
+                  }
+                  priceOverride
+               }
             }
-            priceOverride
-          }
-        }
+         }
       }
-    }
-  }
+   }
 }
 ```
 
@@ -183,6 +182,119 @@ Response example:
           ]
         }
       ]
+    }
+  }
+}
+```
+### Mutation: Create a new Section under a new Menu
+
+This mutation demonstrates how to create a new `Menu`, a `Section`, and link the `Section` to the `Menu`.
+
+**Step 1: Create a Menu**
+Use this mutation to create a new menu.
+
+```graphql
+mutation CreateMenu {
+   createMenu(input: {
+      identifier: "drinks",
+      label: "Drinks",
+      state: "active",
+      startDate: "2025-01-01",
+      endDate: "2025-12-31"
+   }) {
+      id
+      identifier
+      label
+      state
+      startDate
+      endDate
+   }
+}
+```
+
+Response example:
+```json
+{
+   "data": {
+      "createMenu": {
+         "id": "2",
+         "identifier": "drinks",
+         "label": "Drinks",
+         "state": "active",
+         "startDate": "2025-01-01",
+         "endDate": "2025-12-31"
+      }
+   }
+}
+```
+
+**Step 2: Create a Section**
+Use this mutation to create a new section.
+
+```graphql
+mutation CreateSection {
+   createSection(input: {
+      identifier: "juices",
+      label: "Juices",
+      description: "Freshly squeezed upon order"
+   }) {
+      id
+      identifier
+      label
+      description
+   }
+}
+```
+
+Response example:
+```json
+{
+   "data": {
+      "createSection": {
+         "id": "3",
+         "identifier": "juices",
+         "label": "Juices",
+         "description": "Freshly squeezed upon order"
+      }
+   }
+}
+```
+
+**Step 3: Link the Section to the Menu**
+Using the IDs of the `Menu` and `Section` that were just created, use this mutation to link the `Section` to the `Menu` by creating a `MenuSection`.
+
+```graphql
+mutation CreateMenuSection {
+  createMenuSection(input: {
+    menuId: 2,
+    sectionId: 3,
+    displayOrder: 1
+  }) {
+      id
+      menu {
+        identifier
+      }
+      section {
+        identifier
+      }
+      displayOrder
+  }
+}
+```
+
+Response example:
+```json
+{
+  "data": {
+    "createMenuSection": {
+      "id": "3",
+      "menu": {
+        "identifier": "drinks"
+      },
+      "section": {
+        "identifier": "juices"
+      },
+      "displayOrder": 1
     }
   }
 }
