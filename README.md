@@ -342,19 +342,19 @@ This mutation deletes a section from the database.
 Example mutation:
 ```graphql
 mutation DeleteSection {
-  deleteSection(input: { id: 11 }) {
-		id
-  }
+   deleteSection(input: { id: 11 }) {
+      id
+   }
 }
 ```
 
 Response example:
 ```json
 {
-  "data": {
-    "deleteSection": {
-      "id": "11"
-    }
-  }
+   "data": {
+      "deleteSection": {
+         "id": "11"
+      }
+   }
 }
 ```
