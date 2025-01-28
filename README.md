@@ -299,3 +299,62 @@ Response example:
   }
 }
 ```
+
+### Mutation: Update a Section's Details
+
+This mutation updates the details of an existing section (e.g., label or description).
+
+Example mutation:
+```graphql
+mutation UpdateSection {
+  updateSection(
+    input: {
+      id: 1
+      description: "Updated description for our signature pizzas."
+    }
+  ) {
+    id
+    identifier
+    label
+    description
+  }
+}
+```
+
+Response example:
+```json
+{
+  "data": {
+    "updateSection": {
+      "id": "1",
+      "identifier": "classic_pizzas",
+      "label": "Classic Pizzas",
+      "description": "Updated description for our signature pizzas."
+    }
+  }
+}
+```
+
+### Mutation: Delete a Section
+
+This mutation deletes a section from the database.
+
+Example mutation:
+```graphql
+mutation DeleteSection {
+  deleteSection(input: { id: 11 }) {
+		id
+  }
+}
+```
+
+Response example:
+```json
+{
+  "data": {
+    "deleteSection": {
+      "id": "11"
+    }
+  }
+}
+```
