@@ -27,8 +27,9 @@ class ModifierGroupTest < ActiveSupport::TestCase
   end
 
   test "selection_required_min cannot be greater than selection_required_max" do
-    @modifier_group.selection_required_min = 4
+    @modifier_group.selection_required_min = 2
+    @modifier_group.selection_required_max = 1
     assert_not @modifier_group.valid?
-    assert_includes @modifier_group.errors[:selection_required_min], "must be less than or equal to selection_required_max"
+    assert_includes @modifier_group.errors[:selection_required_max].first, "must be more than or equal to selection_required_min"
   end
 end
