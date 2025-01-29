@@ -27,7 +27,6 @@ bundle install
     ```
 
 3. Seed the database with sample data:
-   (Note: This clears any existing data to avoid duplicates)
     ```bash
     rails db:seed
     ```
@@ -37,7 +36,7 @@ bundle install
 rails server
 ```
 
-Visit http://localhost:3000/graphql to access the GraphQL playground locally.
+Visit http://localhost:3000/graphiql to access the GraphQL playground locally.
 
 
 ## Seed Data
@@ -70,8 +69,8 @@ The application includes preloaded data representing a restaurant menu, organize
      - Extra Cheese (+$2.00)  
      - Olives (+$1.00)
   
-This data can be modified in `db/seeds.rb`.
 
+This data can be modified in `db/seeds.rb`.
 
 ## GraphQL Examples
 
@@ -358,3 +357,44 @@ Response example:
    }
 }
 ```
+
+## Potential Metrics to Track
+
+To ensure the application performs optimally, we can track key metrics from several perspectives.
+
+Understanding these metrics will allow us to monitor system health and detect anomalies early, as well as identify areas for improvement, helping us maintain a high level of performance and reliability.
+
+### Request Rates
+Tracking the number of requests the application receives within a specific time period helps us predict and prepare for fluctuations in user demand. This allows us to scale resources accordingly to handle higher loads when necessary.
+
+Additionally, identifying anomalies in traffic could help us detect critical issues or malicious activity.
+
+### Throughput
+Beyond tracking request rates/volume, it is also important to understand the amount of successful transactions our application can process within a specific time period.
+
+This helps us understand the system's performance under varying load conditions and identify potential technical bottlenecks.
+
+### Response Times
+The time taken to complete or send a response to a request is another important metric to measure, and depends on factors such as:
+
+- The amount of available resources
+- Network latency
+- Performance of database queries
+
+Tracking response times allows us to determine whether we meet user expectations for speed and responsiveness.
+
+### Errors
+Errors (e.g. across application transactions or database queries) inform us when the system is not behaving as expected. Often, these are issues that require immediate attention.
+
+Monitoring error rates helps us detect problems early and prioritise fixes, which in turn improves the user experience and reliability of the application. 
+
+### Business Metrics
+Beyond performance, understanding how users interact with the application from a business perspective is crucial. Key business-related metrics include:
+
+- **Transaction frequency**
+    
+    Tracking the frequency of various transactions helps us optimise the performance of the application to suit users' needs. For example, frequently used queries can be optimised for speed and efficiency. while seldom-used fields may be considered for deprecation, simplifying the schema and reducing unnecessary complexity.
+
+- **Conversion Rates & User Journeys**
+    
+    Tracking how many users complete key actions (e.g., placing an order, modifying a menu) helps assess business impact. Knowing that certain user journeys lead to more orders placed, for example, could influence marketing strategies or feature development.
